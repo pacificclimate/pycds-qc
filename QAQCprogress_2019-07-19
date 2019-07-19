@@ -1,0 +1,27 @@
+Out of the 19 checks outlined in Durre et al. (2010), 10 have been completed, as seen in the table below. 
+
+Notes:
+1.	Due to the original project goals, checks which may have been completed for temperature/precipitation may not have been completed for snow
+2.	The code was originally designed to work with crmp.objs, as created by Faron Anslow and James Hiebert
+
+
+   Test	                                      Completed?
+    Naught Check                              	N
+    Duplicate Check                           	N
+    World Record Exceedance Check              	Y
+    Identical Value-Streak Check	              Y
+    Identical  Value-Frequent-Value Check     	Y
+    Gap Check	                                  Y
+    Climatological Outlier Check	              Y
+    Iterative Temperature Consistency Check   	Y
+    Spike/Dip Check	                            Y
+    Lagged Temperature Range Check	            Y
+    Snow-Temperature Consistency Check      	  N
+    Snowfall-Snow Depth Consistency Check     	N
+    Snow-Precipitation Consistency Check	      N
+    Regression Check	                          N
+    Spatial Corroboration Check	                Y
+    Spatial Snow-Temperature Consistency Check	N
+    Extremes Megaconsistency Check	            Y
+    Snow-Temperature Megaconsistency Check    	N
+    Snow Season Reality Check                 	N
