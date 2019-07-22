@@ -18,9 +18,7 @@ netid_dictionary <- c('5'='BCH','2'='motie','3'='motim','12'='mofr','22'='ard','
 #SELECT history_id from obs_count_per_month_history_mv WHERE date_trunc > '1880-12-31' AND date_trunc < '1881-02-01'  ;
 #2019/04/23 going to change querystr to include record start and end
 
-#con <- dbConnect(PostgreSQL(),user="fanslow",host="monsoon.pcic.uvic.ca",dbname="crmp")
-con <- dbConnect(PostgreSQL(),user="cdmb",password="7mU@u&",host="monsoon.pcic.uvic.ca",dbname="crmp")
-#querystr <- 'SELECT meta_history.station_id, meta_history.history_id, meta_history.station_name, meta_history.lon, meta_history.lat, meta_history.elev, meta_history.freq, meta_station.network_id, meta_station.native_id FROM meta_history NATURAL JOIN meta_station;'
+con <- dbConnect(PostgreSQL(),user="fanslow",host="monsoon.pcic.uvic.ca",dbname="crmp")
 querystr <- 'SELECT meta_history.station_id, meta_history.history_id, meta_history.station_name, meta_history.lon, meta_history.lat, meta_history.elev, meta_history.sdate, meta_history.edate, meta_history.freq, meta_station.network_id, meta_station.native_id FROM meta_history NATURAL JOIN meta_station;'
 
 try.rv <- try({
