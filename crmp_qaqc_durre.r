@@ -1477,7 +1477,7 @@ climo_outlier_flag <- function(crmp_obj,statsdf) {
   return(list(tmaxflags=txflags,tminflags=tnflags,pptflags=pptflags))
 }
 
-#section 5 table 3
+#section 5 table 3 - spike/dip check
 temperature_spike_flag <- function(crmp_obj) {
   tnloc <- which.is.tmin(crmp_obj)
   tnflags <- abs(diff(crmp_obj[2:nrow(crmp_obj),tnloc])) >= 25 & as.numeric(diff.POSIXt(crmp_obj@time[2:nrow(crmp_obj)])) == 24 & abs(diff(crmp_obj[1:(nrow(crmp_obj)-1),tnloc])) >= 25 & as.numeric(diff.POSIXt(crmp_obj@time[1:(nrow(crmp_obj)-1)])) == 24
@@ -1488,7 +1488,7 @@ temperature_spike_flag <- function(crmp_obj) {
   return(list(tmaxflags=txflags,tminflags=tnflags))
 }
 
-#section 5 table 3 
+#section 5 table 3 - iterative temperature consistency check (?)
 internal_consistency_flag <- function(crmp_obj) {
   #tmax(0) < tmin(0) - 1
   #tmax(0) < tmin(1) - 1
@@ -1532,7 +1532,7 @@ internal_consistency_flag <- function(crmp_obj) {
 gianttime <- make_giant_daily_timescale()
 giantdoytime <- format(gianttime,'%Y-%j')
 
-#section 5 table 3
+#section 5 table 3 - lagged temperature range check
 lagged_temp_range_flag <- function(crmp_obj) {
   #tmax(0) >= max(tmin(-1:1))+40
   #tmin(0) <= min(tmax(-1:1))-40
