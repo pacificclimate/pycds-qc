@@ -115,10 +115,9 @@ gap_flag <- function(targetstndat){
 }
 
 
-snow_temp_consistency_flag <- function(targetstndat,historyid){
+snow_temp_consistency_flag <- function(targetstndat,historyid,con){
   
   tmin_id= '1393'
-  con <- dbConnect(PostgreSQL(),user="cdmb",password="DNRE2019&",host="dbmsc.pcic.uvic.ca",dbname="msc")
   querystr <- paste('SELECT * FROM crmp.obs_raw WHERE history_id = ',historyid, ' AND vars_id = ', tmin_id,
                     ' order by obs_time ASC',sep='')
   
@@ -150,10 +149,9 @@ snow_temp_consistency_flag <- function(targetstndat,historyid){
 
 
 
-snowfall_snowdepth_flag <- function(targetstndat,historyid){
+snowfall_snowdepth_flag <- function(targetstndat,historyid,con){
   
   snf_id= '1396'
-  con <- dbConnect(PostgreSQL(),user="cdmb",password="DNRE2019&",host="dbmsc.pcic.uvic.ca",dbname="msc")
   querystr <- paste('SELECT * FROM crmp.obs_raw WHERE history_id = ',historyid, ' AND vars_id = ', snf_id,
                     ' order by obs_time ASC',sep='')
   
