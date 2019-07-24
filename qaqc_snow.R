@@ -26,7 +26,7 @@ if (inherits(try.rv, 'try-error')) {
 #grabs snow depth data for target station
 historyid <- 395
 snowd_ids= '1398'
-con <- dbConnect(PostgreSQL(),user="cdmb",password="DNRE2019&",host="dbmsc.pcic.uvic.ca",dbname="msc")
+
 querystr <- paste('SELECT * FROM crmp.obs_raw WHERE history_id = ',historyid, ' AND vars_id = ', snowd_ids,
                   ' order by obs_time ASC',sep='')
 
