@@ -114,7 +114,7 @@ world_record_flag <- function(crmp_obj){
   txloc <- which.is.tmax(crmp_obj)
   txflags <- crmp_obj[2:nrow(crmp_obj),txloc] < -87.4 | crmp_obj[2:nrow(crmp_obj),txloc] > 57.7
   pptloc <- which.is.precip(crmp_obj)
-  pptflags <- crmp_obj[2:nrow(crmp_obj),pptloc] < 0 | crmp_obj[2:nrow(crmp_obj),pptloc] > 1925
+  pptflags <- crmp_obj[2:nrow(crmp_obj),pptloc] < 0 | crmp_obj[2:nrow(crmp_obj),pptloc] > 1828.8
   
   txflags[is.na(txflags)] <- FALSE
   tnflags[is.na(tnflags)] <- FALSE
