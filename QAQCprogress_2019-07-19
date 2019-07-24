@@ -9,18 +9,18 @@ Notes:
     Naught Check                              	N
     Duplicate Check                           	N
     World Record Exceedance Check              	Y
-    Identical Value-Streak Check	              Y
+    Identical Value-Streak Check	               Y
     Identical  Value-Frequent-Value Check     	Y
-    Gap Check	                                  Y
-    Climatological Outlier Check	              Y
+    Gap Check	                                 Y
+    Climatological Outlier Check	               Y
     Iterative Temperature Consistency Check   	Y
-    Spike/Dip Check	                            Y
+    Spike/Dip Check	                           Y
     Lagged Temperature Range Check	            Y
-    Snow-Temperature Consistency Check      	  N
+    Snow-Temperature Consistency Check      	   N
     Snowfall-Snow Depth Consistency Check     	N
     Snow-Precipitation Consistency Check	      N
-    Regression Check	                          N
-    Spatial Corroboration Check	                Y
+    Regression Check	                           N
+    Spatial Corroboration Check	               Y
     Spatial Snow-Temperature Consistency Check	N
     Extremes Megaconsistency Check	            Y
     Snow-Temperature Megaconsistency Check    	N
