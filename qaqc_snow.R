@@ -56,7 +56,7 @@ world_record_flag <- function(targetstndat){
   
   wrflagslist <- (list(sdincreaseflags,sdflags))
   names(wrflagslist) <- c('sdincreaseflags','sdflags')
-  return(wrflaglist)
+  return(wrflagslist)
   
 }
 
@@ -99,11 +99,11 @@ gap_flag <- function(targetstndat){
     sdflags <- rep(FALSE,length(monthdat))
     
     tail1 <- last(which(gaps[1:mindex] >= 35))
-    if(length(tail1) > 0 & !is.na(tail1)){
+    if(length(tail1) > 0){ #& !is.na(tail1)){
       sdflags[1:tail1] <- TRUE
     }
     tail2 <- (first(which(gaps[mindex:length(gaps)] >= 35)) + mindex)
-    if(length(tail2) > 0 & !is.na(tail2)){
+    if(length(tail2) > 0){ #& !is.na(tail2)){
       sdflags[tail2:length(monthdat)] <- TRUE
     }
     sdflags <- data.frame(sortdat,sdflags)
@@ -149,7 +149,7 @@ snow_temp_consistency_flag <- function(targetstndat,historyid,con){
 
 
 
-snowfall_snowdepth_flag <- function(targetstndat,historyid,con){
+snowfall_snowdepth_flag <- function(targetstndat,historyid,testvar,con){
   
   snf_id= '1396'
   querystr <- paste('SELECT * FROM crmp.obs_raw WHERE history_id = ',historyid, ' AND vars_id = ', snf_id,
@@ -166,23 +166,40 @@ snowfall_snowdepth_flag <- function(targetstndat,historyid,con){
   }
   close_crmp_connections()
   
+  targetstndat_snf_orig<-targetstndat_snf
   targetstndat_snf <- targetstndat_snf[targetstndat_snf$obs_time %in% targetstndat$obs_time,]
+
   
-  sdflags <- diff(targetstndat$datum[2:nrow(targetstndat)]) > (targetstndat_snf$datum[2:nrow(targetstndat_snf)-1] + targetstndat_snf$datum[2:nrow(targetstndat_snf)] + 25) &
-             diff(targetstndat$datum[2:nrow(targetstndat)]) > (targetstndat_snf$datum[2:nrow(targetstndat_snf)] + targetstndat_snf$datum[2:nrow(targetstndat_snf)+1] + 25)
-    
-  sdflags <- rep(FALSE,nrow(targetstndat))
-  sdflags <- diff(targetstndat$datum[targetstndat$obs_time %in% targetstndat_snf$obs_time]) > (targetstndat_snf$datum[2:nrow(targetstndat_snf)-1] + targetstndat_snf$datum[2:nrow(targetstndat_snf)] + 25) 
+ # sdflags <- diff(targetstndat$datum[2:nrow(targetstndat)]) > (targetstndat_snf$datum[2:nrow(targetstndat_snf)-1] + targetstndat_snf$datum[2:nrow(targetstndat_snf)] + 25) &
+#             diff(targetstndat$datum[2:nrow(targetstndat)]) > (targetstndat_snf$datum[2:nrow(targetstndat_snf)] + targetstndat_snf$datum[2:nrow(targetstndat_snf)+1] + 25)
+  sdflags<-  as.data.frame(targetstndat$obs_time)
+  colnames(sdflags)<-'obs_time'
+  sdflags$flags <- (rep(FALSE,nrow(targetstndat)))
+
+  tindex<-which(targetstndat$obs_time %in% targetstndat_snf$obs_time)
+  sdflags$flags[tindex[2:length(tindex)]]<- diff(targetstndat$datum[targetstndat$obs_time %in% targetstndat_snf$obs_time]) > (targetstndat_snf$datum[2:nrow(targetstndat_snf)-1] + targetstndat_snf2$datum[2:nrow(targetstndat_snf)] + 25) &
+             diff(targetstndat$datum[targetstndat$obs_time %in% targetstndat_snf$obs_time]) > (targetstndat_snf$datum[2:nrow(targetstndat_snf)+1] + targetstndat_snf2$datum[2:nrow(targetstndat_snf)] + 25) 
+ 
+   targetstndat_snf<-targetstndat_snf_orig
+  sfflags<-  as.data.frame(targetstndat_snf$obs_time)
+  colnames(sfflags)<-'obs_time'
+  sfflags$flags <- (rep(FALSE,nrow(targetstndat_snf)))
   
-  which(targetstndat_snf$datum[2:nrow(targetstndat_snf)-1] + targetstndat_snf$datum[2:nrow(targetstndat_snf)] > 25)
-  targetstndat$datum[targetstndat$obs_time[2:nrow(targetstndat)] %in% targetstndat_snf$obs_time] - targetstndat$datum[targetstndat$obs_time[2:nrow(targetstndat)-1] %in% targetstndat_snf$obs_time]
+  sfflags$flags[sdflags$obs_time[sdflags$flags==TRUE] == sfflags$obs_time]<-TRUE
   
+  if(testvar=='snowd' | testvar=='SNOWD'){
+    return(sdflags$flags)
+  }else if(testvar=='SNOW' |testvar=='snow'){
+    return(sfflags$flags)
+  }else{
+    print('testvar accepts either SNOWD for snowdepth or SNOW for snowfall')
+  }
   
-  which(targetstndat$obs_time %in% targetstndat_snf$obs_time)
-  
-  
+
+
   
 }
+
 
 
 
